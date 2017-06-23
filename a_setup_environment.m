@@ -10,7 +10,7 @@ if exist('/Volumes', 'dir')
     
     disp('Running on Mac workstation')
     add_canlab = @(p) addpath(genpath(['/Users/wielgosz/Box Sync/chm_canlab/tools/' p]));
-    projectdir='/Volumes/study2/nc2p/canlab/';
+    projectdir='/Volumes/study2/nc2p/canlab';
 
     % note that older spm12 binaries don't work for macOS 10.12 + R2017a
     addpath('~/bin/spm12') 
@@ -27,6 +27,12 @@ else
     projectdir = fileparts(fileparts(fileparts(pwd))); % get directory three levels up (projectdir/dset/datasetname/scripts)
     warning(['Assuming this is dir for dsets: ' dsetdir ])
 end
+
+warning('off', 'MATLAB:rmpath:DirNotFound')
+dset_pattern = [projectdir '/dsets/nc2*'];
+disp(['Removing previously set ' dset_pattern '/scripts from path'])
+dset_script_paths = arrayfun(@(x) fullfile(x.folder, x.name, 'scripts'), dir(dset_pattern), 'UniformOutput', false);
+rmpath(dset_script_paths{:})
 
 add_canlab('CANlab_help_examples/Second_level_analysis_template_scripts');
 add_canlab('CanlabCore/CanlabCore');

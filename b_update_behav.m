@@ -21,4 +21,18 @@ fprintf('Loaded DAT from results%simage_names_and_setup.mat\n', filesep);
 %prep_1_set_conditions_contrasts_colors
 
 % Second command will resave DAT
-prep_1b_prep_behavioral_data
+%prep_1b_prep_behavioral_data
+
+%% Save if DAT field looks complete
+
+if isfield(DAT, 'SIG_conditions') && isfield(DAT, 'gray_white_csf')
+    % Looks complete, save
+    
+    printhdr('Save results');
+    
+    savefilename = fullfile(resultsdir, 'image_names_and_setup.mat');
+    save(savefilename, 'DAT', '-append');
+    
+else
+    printhdr('DAT FIELD DOES NOT LOOK COMPLETE. Are you sure you want to save? Skipping...');
+end

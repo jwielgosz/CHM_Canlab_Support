@@ -14,13 +14,19 @@ prep_1b_prep_behavioral_data
 % prep_2
 
 if exist(fullfile(resultsdir, 'prep2_completed'), 'file')
-    disp('Already completed prep_2, skipping and loading saved files')
-    b_reload_nps_response_only
+    
+    if exist(fullfile(resultsdir, 'prep4_completed'), 'file')
+        disp('Already completed prep_4, skipping and loading NPS response')
+        b_reload_nps_response_only
+    else
+        
+        disp('Already completed prep_2, loading full matfiles for contrast and NPS calculations')
+        b_reload_saved_matfiles
+    end
 else
     disp('Running prep_2')
     prep_2_load_image_data_and_save
 end
-
 
 %% --------------------------------------------------------------
 % prep_3

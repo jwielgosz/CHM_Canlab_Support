@@ -40,6 +40,8 @@ for s = 1:length(mysignature)
     condition_names = DAT.SIG_conditions.(scale_name).(sim_name).conditionnames;
     
     for c = 1:length(condition_names )
+        responses = DAT.SIG_conditions.(scalenames{1}).(simnames{1}).(signame).(c);
+
         try 
             id_col = DAT.BETWEENPERSON.condition_covs{c}.id;
         catch
@@ -47,7 +49,6 @@ for s = 1:length(mysignature)
         end
         
         cname = condition_names{c};
-        responses = DAT.SIG_conditions.(scalenames{1}).(simnames{1}).(signame).(c);
         %img_idx = 
         rtab = filltable(signame, scale_name, sim_name, ctype, cname, id_col, responses);
         rtab.Properties.VariableNames = tab_colnames;
